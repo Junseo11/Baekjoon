@@ -30,11 +30,5 @@ fun main() = with(Scanner(System.`in`)){
 
         print("${child}/${parent}")
 
-
     }
-
-
-
-
-
 }
