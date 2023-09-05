@@ -8,9 +8,20 @@ import java.util.Scanner
 1부터 n까지의 합공식 n(n+1)/2
 *
 * */
-fun main() = with(Scanner(System.`in`)){
+fun main() = with(Scanner(System.`in`)) {
     val input = nextLong()
 
-    println((input-1)*((input-1)+1)/2)
+    println((input - 1) * ((input - 1) + 1) / 2)
     println(2)
 }
+//fun main() = with(Scanner(System.`in`)){
+//    val n = nextInt()
+//
+//    var sum = 0L
+//    for(i in 1 .. n-1){
+//        sum+=i
+//    }
+//
+//    println(sum)
+//    println(2)
+//}
