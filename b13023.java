@@ -2,7 +2,6 @@ package baek.BaekjoonKotlin;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class b13023 {
 
