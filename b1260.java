@@ -1,88 +1,88 @@
 package baek.BaekjoonKotlin;
 
-import java.io.*;
 import java.util.*;
 
 public class b1260 {
-
-    static ArrayList<Integer> list[];
-    static boolean visited1[];
-    static boolean visited2[];
-
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static StringBuilder sb = new StringBuilder();
-    static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-    static Queue<Integer> q = new LinkedList<>();
-    public static void main(String []args) throws IOException{
+
+    static ArrayList<Integer> abj [];
+    static Queue<Integer> queue = new LinkedList<>();
+    static boolean [] dfsvisit;
+    static boolean [] bfsvisit;
+
+    public static void dfs(int v){
+        dfsvisit[v] = true;
+        sb.append(v+" ");
+
+        // 재귀 노드를 따라 깊게 내려간다
+        for(int item : abj[v]){
+            if(!dfsvisit[item]){
+                dfs(item);
+            }
+        }
+    }
+
+    // 방문 표시, 출력, 큐에 입력한다
+    public static void bfs(int v){
+        sb.append("\n");
+        queue.add(v);
+
+        bfsvisit[v] = true;
 
 
+        while (!queue.isEmpty()){
+            int item = queue.poll();
+            sb.append(item+" ");
 
-        String []str = br.readLine().split(" ");
-        int n = Integer.parseInt(str[0])+1;
-        int m = Integer.parseInt(str[1]);
-        int v = Integer.parseInt(str[2]);
 
-        list = new ArrayList[n];
-        visited1 = new boolean[n];
-        visited2 = new boolean[n];
+            for(int itm : abj[item]){
+                if(!bfsvisit[itm]){
+                    queue.add(itm);
+                    bfsvisit[itm] = true;
+                }
+            }
+        }
+    }
 
-        for(int i = 1; i<n; ++i){
-            list[i] = new ArrayList<>();
-            visited1[i] = false;
-            visited2[i] = false;
+    public static void main(String [] args){
+        Scanner input = new Scanner(System.in);
+
+        int n = input.nextInt();
+        int m = input.nextInt();
+        int v = input.nextInt();
+
+        abj = new ArrayList[n+1];
+        dfsvisit = new boolean[n+1];
+        bfsvisit = new boolean[n+1];
+
+        // 노드 초기화
+        for(int i = 1 ; i <= n; ++i){
+            abj[i] = new ArrayList<>();
+            dfsvisit[i] = false;
+            bfsvisit[i] = false;
         }
 
-        for(int i = 0; i <m; ++i){
-            String []s = br.readLine().split(" ");
-            int a = Integer.parseInt(s[0]);
-            int b = Integer.parseInt(s[1]);
+        // 노드에 data 입력
+        for(int i = 0 ; i < m; ++i){
+            int a = input.nextInt();
+            int b = input.nextInt();
 
-            list[a].add(b);
-            list[b].add(a);
-
+            // 두 노드를 양방향으로 이어줘야 한다
+            abj[a].add(b);
+            abj[b].add(a);
         }
 
-        for(int i = 1; i<n; ++i){
-            Collections.sort(list[i]);
+        for(int i = 1 ; i < abj.length; ++i){
+            Collections.sort(abj[i]);
         }
+
+
 
         dfs(v);
         bfs(v);
 
-        bw.write(sb.toString().trim());
-        bw.flush();
-        bw.close();
-    }
-
-    static void dfs(int node){
-        visited1[node] = true;
-        sb.append(node+" ");
-
-        for(int n : list[node]){
-            if(!visited1[n]){
-                dfs(n);
-            }
-        }
-    }
-
-    static void bfs(int node){
-        sb.append("\n");
-        visited2[node] = true;
-        q.add(node);
-
-        while (!q.isEmpty()){
-            int item = q.poll();
-            sb.append(item +" ");
-            for(int n : list[item]){
-                if(!visited2[n]){
-                    q.add(n);
-                    visited2[n] = true;
-                }
-            }
-        }
+        System.out.println(sb.toString().trim());
 
 
     }
-
-
 }
